@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("user")
+  contact_no String?
+  profile_picture String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Roles{
+  role_id String @id @default(uuid())
+  role_name String
+  permissions String[]
+}
+
+model Enrollment{
+  enrollment_id String @id @default(uuid())
+  user_id String
+  course_id String
+  enrollment_date DateTime @default(now())
+  completion_status Boolean @default(false)
+  completion_date DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course{
+  course_id String @id @default(uuid())
+  title String
+  course_description String
+  prerequisites String
+  course_duration String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Content{
+  content_id String @id @default(uuid())
+  course_id String
+  content_title String
+  content_type String
+  content_order Int
+  content_url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model progress{
+  progress_id String @id @default(uuid())
+  user_id String
+  course_id String
+  content_id String
+  progress_status Boolean @default(false)
+  progress_date DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Activity{
+  activity_id String @id @default(uuid())
+  user_id String
+  action String
+  activity_date DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
