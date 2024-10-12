@@ -14,12 +14,16 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.20.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/concurrently": "^7.0.0",
+    "@types/uuid": "^10.0.0",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^9.0.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "nodemon": "^3.1.7",
-    "prisma": "^5.20.0"
+    "prisma": "^5.20.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
