@@ -1,5 +1,6 @@
-import { Router, Request, Response} from "express";
-import {createUser, getUser, viewOneUser, updateUser, deleteUser } from "../controller/user.controller";
+import { Router} from "express";
+import {createUser, deleteUser, getUser, updateUser, viewOneUser} from "../controller/user.controller";
+
 
 let user_router = Router();
 

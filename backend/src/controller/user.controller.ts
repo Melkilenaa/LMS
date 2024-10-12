@@ -1,4 +1,4 @@
-import {Request, Response,} from 'express';
+import {Request, Response} from 'express';
 import { UserService } from '../services/users.services';
 
 let service = new UserService();
