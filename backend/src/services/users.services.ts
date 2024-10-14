@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 
 export class UserService{
 
-createUser = async (user: User) => {
+createUser = async (req: unknown, res: unknown, user: User) => {
   let user_id = v4();
   const hashedPassword = await bcrypt.hash(user.password, 10);
   const newUser = await prisma.user.create({
@@ -34,22 +34,22 @@ createUser = async (user: User) => {
   }
 }
 
-async getUser() {
+async getUser(req: unknown, res: unknown) {
  
   return{
    users: await prisma.user.findMany()
   } 
 }
 
- async viewOneUser(user_id: string) {
+async viewOneUser(req: unknown, res: unknown, user_id: string) {
   return {
     user: await prisma.user.findUnique({
       where: {
-       user_id:user_id
+       user_id: user_id
       }
     })
   }
-  }
+}
   async updateUser(updated_user: User) {
     let current_details = await prisma.user.findUnique({
       where:{
@@ -73,7 +73,7 @@ async getUser() {
       message: "User updated successfully"
     }
   }
-  async deleteUser(user_id: string) {
+  async deleteUser(req: unknown, res: unknown, user_id: string) {
     let response = await prisma.user.delete({
       where:{
         user_id:user_id

@@ -1,0 +1,36 @@
+###
+POST http://localhost:2607/user/createUser
+Content-Type: application/json
+
+{
+    "name": "Bryther Doe",
+    "email": "breatherdoe@gmail.com",
+    "password": "password023",
+    "role": "admin",
+    "contact_info":"08012345678",
+    "profile_picture":"https://www.google.com"}
+
+###
+PUT http://localhost:2607/user/update/ccfc8256-3964-49dc-9922-eedea2f6d725
+Content-Type: application/json
+
+{
+    "name": "Joe Doe",
+    "email": "joedoe@gmail.com",
+    "password": "password123",
+    "role": "learner",
+    "contact_info":"080129045678",
+    "profile_picture":"https://www.google.com/097"
+    }
+
+###
+GET http://localhost:2607/user/fetchall
+Content-Type: application/json
+
+###
+GET http://localhost:2607/user/get/ccfc8256-3964-49dc-9922-eedea2f6d725
+Content-Type: application/json
+
+###
+DELETE http://localhost:2607/user/delete/1ddd8bd2-5b3c-4d7d-989a-15f2025663f9
+Content-Type: application/json

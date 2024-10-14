@@ -29,19 +29,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
 // import notes_router from './routers/notes'
-// import user_router from './routers/user'
+const user_1 = __importDefault(require("./routers/user"));
 // import auth_router from './routers/auth'
 const app = (0, express_1.default)();
 app.use((0, express_1.json)());
 app.use((0, cors_1.default)());
 // app.use('/notes', notes_router),
-// app.use('/user', user_router),
-// app.use('/auth', auth_router)
-app.use((err, req, res, next) => {
-    res.json({
-        message: err.message
+app.use('/user', user_1.default),
+    // app.use('/auth', auth_router)
+    app.use((err, req, res, next) => {
+        res.json({
+            message: err.message
+        });
     });
-});
 let PORT = 2607;
 app.listen(2607, () => {
     console.log(`Server running on port ${PORT}`);

@@ -2,36 +2,39 @@ import {Request, Response} from 'express';
 import { UserService } from '../services/users.services';
 
 let service = new UserService();
-
- export async function createUser(req: Request, res: Response) {
-    try {
-      let response = await service.createUser(req.body);
-
+export async function createUser(req: Request, res: Response) {
+  try {
+      let response = await service.createUser(req, res, req.body);
       res.json(response);
+  } catch (error) {
+      res.status(500).json({ error });
+  }
+}
 
-    } catch (error) {
-      return res.json({error});
-    }
+export async function getUser(req: Request, res: Response) {
+  try {
+      const result = await service.getUser(req, res); // Call the appropriate service function here
+      res.send(result);
+  } catch (error) {
+      res.status(500).send(error);
   }
-  export async function getUser(req:Request, res: Response) {
-    try {
-      let response = await service.getUser();
-      return res.status(201).json( response)
-      }
-     catch (error) {
-      return res.json({
-        error:error
-      });
+}
+export async function viewOneUser(req: Request, res: Response) {
+  try {
+    const user_id = req.params.id;
+
+    const response = await service.viewOneUser(req, res, user_id);
+    
+    if (!response) {
+     res.status(404).json({ error: "User not found" });
     }
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: (error as Error).message || "An error occurred" });
   }
- export async function viewOneUser(req: Request, res: Response) {
-    try {
-      let response = await service.viewOneUser(req.params.id);
-      res.json(response);
-    } catch (error) {
-      return res.json({error});
-    }
-  }
+}
+
   export async function updateUser(req: Request, res: Response) {
     try {
       let user_id = req.params.id;
@@ -52,18 +55,19 @@ let service = new UserService();
       let response = await service.updateUser (User);
       res.json(response);
     } catch (error) {
-      return res.json({error});
-    }
+      res.status(500).json({ error });    }
   }
 
  export async function deleteUser(req: Request, res: Response) {
     try {
-      let id = req.params.id;
+      let user_id = req.params.id;
+      let response = await service.deleteUser(req, res, user_id);
 
-      let response = await service.deleteUser(id);
-     return res.json(response)
-    } catch (error) {
-      return res.json({
-        error:error});
+      res.json(response)
+    }  catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+      }
+      res.status(500).json({ error: "An unknown error occurred" });
     }
   }
